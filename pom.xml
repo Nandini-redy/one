@@ -1,139 +1,66 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>in.javahome</groupId>
+	<artifactId>myweb</artifactId>
+	<packaging>war</packaging>
+	<version>8.7.3</version>
+	<name>Java Home myweb</name>
+	<url>http://maven.apache.org</url>
+	
+	<properties>
+		<docker.image.prefix>kammana</docker.image.prefix>
+		<sonar.host.url>http://18.181.164.81:9000/</sonar.host.url>
 
-class ClothingItem {
-    String name;
-    String size;
-    double price;
-    int quantity;
+	</properties>
+	<dependencies>
 
-    // Constructor
-    ClothingItem(String name, String size, double price, int quantity) {
-        this.name = name;
-        this.size = size;
-        this.price = price;
-        this.quantity = quantity;
-    }
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
 
-    // Display item details
-    void displayItem() {
-        System.out.println("Name: " + name);
-        System.out.println("Size: " + size);
-        System.out.println("Price: $" + price);
-        System.out.println("Quantity: " + quantity);
-        System.out.println("-----------------------");
-    }
-}
+	</dependencies>
+	<repositories>
+		<repository>
+  <id>mydevops-feed</id>
+  <url>https://pkgs.dev.azure.com/shaikmustafa8991/myproject/_packaging/mydevops-feed/maven/v1</url>
+  <releases>
+    <enabled>true</enabled>
+  </releases>
+  <snapshots>
+    <enabled>true</enabled>
+  </snapshots>
+</repository>
+	</repositories>
+	<distributionManagement>
+		 <snapshotRepository>
+		    <id>nexusRepo</id>
+		    <url>http://34.208.218.12:8081/repository/sample-snapshots/</url>
+		 </snapshotRepository>
+		
+		<repository>
+  <id>mydevops-feed</id>
+  <url>https://pkgs.dev.azure.com/shaikmustafa8991/myproject/_packaging/mydevops-feed/maven/v1</url>
+  <releases>
+    <enabled>true</enabled>
+  </releases>
+  <snapshots>
+    <enabled>true</enabled>
+  </snapshots>
+</repository>
+  	</distributionManagement>
+	
+	<pluginRepositories>
+	    <pluginRepository>    
+		<id>maven1</id>
+		<name>Maven.org</name>
+		<url>http://repo1.maven.org/maven2</url>
+	    </pluginRepository>
+	</pluginRepositories>
 
-public class ClothingBusinessApp {
-
-    static ArrayList<ClothingItem> inventory = new ArrayList<>();
-    static double totalSales = 0;
-
-    // Add new clothing item
-    static void addItem(String name, String size, double price, int quantity) {
-        inventory.add(new ClothingItem(name, size, price, quantity));
-        System.out.println("Item added successfully!");
-    }
-
-    // Display all items
-    static void displayInventory() {
-        if (inventory.isEmpty()) {
-            System.out.println("Inventory is empty.");
-            return;
-        }
-
-        System.out.println("\n--- Clothing Inventory ---");
-        for (ClothingItem item : inventory) {
-            item.displayItem();
-        }
-    }
-
-    // Sell an item
-    static void sellItem(String itemName, int quantitySold) {
-        for (ClothingItem item : inventory) {
-            if (item.name.equalsIgnoreCase(itemName)) {
-
-                if (item.quantity >= quantitySold) {
-                    item.quantity -= quantitySold;
-                    totalSales += item.price * quantitySold;
-
-                    System.out.println(quantitySold + " item(s) sold successfully!");
-                    return;
-                } else {
-                    System.out.println("Not enough stock available.");
-                    return;
-                }
-            }
-        }
-
-        System.out.println("Item not found.");
-    }
-
-    // Main method
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("\n===== Clothing Business Menu =====");
-            System.out.println("1. Add Clothing Item");
-            System.out.println("2. Display Inventory");
-            System.out.println("3. Sell Item");
-            System.out.println("4. View Total Sales");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
-
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
-            switch (choice) {
-
-                case 1:
-                    System.out.print("Enter item name: ");
-                    String name = scanner.nextLine();
-
-                    System.out.print("Enter size: ");
-                    String size = scanner.nextLine();
-
-                    System.out.print("Enter price: ");
-                    double price = scanner.nextDouble();
-
-                    System.out.print("Enter quantity: ");
-                    int quantity = scanner.nextInt();
-
-                    addItem(name, size, price, quantity);
-                    break;
-
-                case 2:
-                    displayInventory();
-                    break;
-
-                case 3:
-                    System.out.print("Enter item name to sell: ");
-                    String itemName = scanner.nextLine();
-
-                    System.out.print("Enter quantity to sell: ");
-                    int quantitySold = scanner.nextInt();
-
-                    sellItem(itemName, quantitySold);
-                    break;
-
-                case 4:
-                    System.out.println("Total Sales: $" + totalSales);
-                    break;
-
-                case 5:
-                    System.out.println("Thank you for using the Clothing Business App!");
-                    break;
-
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-
-        } while (choice != 5);
-
-        scanner.close();
-    }
-}
+	
+</project>
