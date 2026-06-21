@@ -1,10 +1,3 @@
-// Simple Clothing Business Application in Java
-// Features:
-// 1. Add clothing items
-// 2. Display inventory
-// 3. Sell items
-// 4. Calculate total sales
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
